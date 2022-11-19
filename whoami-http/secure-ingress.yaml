@@ -1,0 +1,27 @@
+# ingress.yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: secwhoami
+  namespace: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-basic-auth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  rules:
+  - host: 3.221.57.168.nip.io
+    http:
+      paths:
+      - path: /secwhoami
+        pathType: Prefix
+        backend:
+          service:
+            name: whoami
+            port:
+              number: 80
+  tls:
+  - hosts:
+      - 3.221.57.168.nip.io
+    secretName: my-tls-secret

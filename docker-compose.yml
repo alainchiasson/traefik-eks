@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  ekssh:
+    build:
+      context: ./ekssh
+    image: alainchiasson/ekssh:local
+    container_name: ekshs
+    volumes:
+      - .:/workdir
+
+    command:
+      - 'sleep'
+      - 'infinity'
